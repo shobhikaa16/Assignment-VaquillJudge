@@ -210,132 +210,165 @@ const Courtroom = () => {
   };
 
   return (
-    <div className="min-h-screen bg-courtroom-bg flex flex-col">
-      <header className="border-b border-border bg-card sticky top-0 z-10 shadow-sm">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <Scale className="h-6 w-6 text-secondary" />
-              <div>
-                <h1 className="text-xl font-bold text-primary">{caseData.caseTitle}</h1>
-                <p className="text-sm text-muted-foreground">
-                  {caseData.plaintiffName} v. {caseData.defendantName}
-                </p>
-              </div>
+  <div className="min-h-screen bg-[#0a0f1e] flex flex-col text-white">
+    {/* Header */}
+    <header className="border-b border-[#1e293b] bg-[#111829] sticky top-0 z-10 shadow-lg shadow-[#3b82f610]">
+      <div className="container mx-auto px-4 py-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <Scale className="h-6 w-6 text-[#3b82f6]" />
+            <div>
+              <h1 className="text-xl font-bold text-[#3b82f6] drop-shadow-[0_0_4px_#3b82f6]">
+                {caseData.caseTitle}
+              </h1>
+              <p className="text-sm text-gray-400">
+                {caseData.plaintiffName} v. {caseData.defendantName}
+              </p>
             </div>
-            {currentPhase === "arguments" && (
-              <div className="flex items-center gap-2 px-4 py-2 bg-secondary/10 rounded-lg">
-                <AlertCircle className="h-4 w-4 text-secondary" />
-                <span className="text-sm font-medium">
-                  {argumentsRemaining} argument{argumentsRemaining !== 1 ? "s" : ""} remaining
-                </span>
-              </div>
-            )}
-            <Button variant="outline" onClick={() => navigate("/case-setup")}>
-              New Case
-            </Button>
-          </div>
-        </div>
-      </header>
-
-      <main className="flex-1 container mx-auto px-4 py-6 flex gap-4">
-        {/* Plaintiff Side */}
-        <div className="w-1/4 space-y-4">
-          <Card className="p-4 border-l-4 border-l-plaintiff shadow">
-            <h3 className="font-semibold text-primary mb-2">Side A - Plaintiff</h3>
-            <p className="text-sm text-foreground font-medium mb-4">{caseData.plaintiffName}</p>
-            {currentPhase === "arguments" && argumentsRemaining > 0 && (
-              <div className="space-y-2">
-                <Textarea
-                  placeholder="Enter your argument..."
-                  value={plaintiffInput}
-                  onChange={(e) => setPlaintiffInput(e.target.value)}
-                  rows={4}
-                />
-                <Button
-                  onClick={() => handleSendMessage("plaintiff", plaintiffInput)}
-                  disabled={!plaintiffInput.trim() || judgeThinking}
-                  className="w-full"
-                >
-                  <Send className="h-4 w-4 mr-2" /> Submit Argument
-                </Button>
-              </div>
-            )}
-          </Card>
-        </div>
-
-        {/* Center - Judge */}
-        <div className="flex-1 flex flex-col">
-          <Card className="mb-6 p-6 bg-gradient-to-b from-primary to-primary/80 text-primary-foreground">
-            <div className="flex flex-col items-center">
-              <div className="w-20 h-20 rounded-full bg-secondary flex items-center justify-center mb-3 shadow-lg">
-                <Gavel className="h-10 w-10 text-primary" />
-              </div>
-              <h2 className="text-2xl font-bold mb-1">AI Judge</h2>
-              <p className="text-sm opacity-90">{judgeThinking ? "Deliberating..." : "Presiding"}</p>
-            </div>
-          </Card>
-
-          {/* Chat Messages */}
-          <div className="flex-1 overflow-y-auto space-y-4 pb-4">
-            {messages.map((msg, idx) => (
-              <Card key={idx} className={`p-4 ${getMessageAlignment(msg.role)} ${getMessageStyle(msg.role)}`}>
-                <p className="text-sm font-semibold mb-1 capitalize">
-                  {msg.role === "plaintiff"
-                    ? caseData.plaintiffName
-                    : msg.role === "defendant"
-                    ? caseData.defendantName
-                    : "Judge"}
-                </p>
-                <p className="text-sm leading-relaxed">{msg.content}</p>
-              </Card>
-            ))}
-
-            {judgeThinking && (
-              <Card className="p-4 mx-auto max-w-2xl bg-primary/5 border-secondary/30">
-                <p className="text-sm text-muted-foreground text-center">Judge is deliberating...</p>
-              </Card>
-            )}
           </div>
 
-          {currentPhase === "initial" && messages.length > 0 && (
-            <Button
-              onClick={handleInitialVerdict}
-              disabled={judgeThinking}
-              className="mt-4 bg-secondary hover:bg-secondary/90 text-secondary-foreground font-semibold"
+          {currentPhase === "arguments" && (
+            <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-[#3b82f610] border border-[#3b82f650]">
+              <AlertCircle className="h-4 w-4 text-[#3b82f6]" />
+              <span className="text-sm font-medium">
+                {argumentsRemaining} argument{argumentsRemaining !== 1 ? "s" : ""} remaining
+              </span>
+            </div>
+          )}
+
+          <Button
+            variant="outline"
+            onClick={() => navigate("/case-setup")}
+            className="border-[#3b82f6] text-[#3b82f6] hover:bg-[#3b82f620]"
+          >
+            New Case
+          </Button>
+        </div>
+      </div>
+    </header>
+
+    {/* MAIN */}
+    <main className="flex-1 container mx-auto px-4 py-6 flex gap-4">
+
+      {/* PLAINTIFF */}
+      <div className="w-1/4 space-y-4">
+        <Card className="p-4 border-l-4 border-l-[#3b82f6] bg-[#111829] shadow-[0_0_12px_#3b82f620]">
+          <h3 className="font-semibold text-[#3b82f6] mb-2 drop-shadow-[0_0_4px_#3b82f6]">
+            Side A - Plaintiff
+          </h3>
+          <p className="text-sm text-gray-300 font-medium mb-4">
+            {caseData.plaintiffName}
+          </p>
+
+          {currentPhase === "arguments" && argumentsRemaining > 0 && (
+            <div className="space-y-2">
+              <Textarea
+                placeholder="Enter your argument..."
+                value={plaintiffInput}
+                onChange={(e) => setPlaintiffInput(e.target.value)}
+                rows={4}
+                className="bg-[#0f1425] border border-[#3b82f650] text-white"
+              />
+              <Button
+                onClick={() => handleSendMessage("plaintiff", plaintiffInput)}
+                disabled={!plaintiffInput.trim() || judgeThinking}
+                className="w-full bg-[#3b82f6] hover:bg-[#3b82f6]/90 text-white shadow-[0_0_10px_#3b82f6]"
+              >
+                <Send className="h-4 w-4 mr-2" /> Submit Argument
+              </Button>
+            </div>
+          )}
+        </Card>
+      </div>
+
+      {/* JUDGE + CHAT */}
+      <div className="flex-1 flex flex-col">
+        <Card className="mb-6 p-6 bg-gradient-to-b from-[#3b82f6] to-[#1e40af] text-white shadow-[0_0_20px_#3b82f6]">
+          <div className="flex flex-col items-center">
+            <div className="w-20 h-20 rounded-full bg-white flex items-center justify-center mb-3 shadow-[0_0_15px_#3b82f6]">
+              <Gavel className="h-10 w-10 text-[#3b82f6]" />
+            </div>
+            <h2 className="text-2xl font-bold mb-1 drop-shadow-[0_0_6px_#000]">AI Judge</h2>
+            <p className="text-sm opacity-90">{judgeThinking ? "Deliberating..." : "Presiding"}</p>
+          </div>
+        </Card>
+
+        {/* CHAT BOX */}
+        <div className="flex-1 overflow-y-auto space-y-4 pb-4">
+          {messages.map((msg, idx) => (
+            <Card
+              key={idx}
+              className={`
+                p-4 
+                ${getMessageAlignment(msg.role)}
+                bg-[#111829]
+                border border-[#3b82f650]
+                shadow-[0_0_10px_#3b82f610]
+              `}
             >
-              <Gavel className="h-5 w-5 mr-2" /> Request Initial Verdict
-            </Button>
+              <p className="text-sm font-semibold mb-1 capitalize text-[#3b82f6]">
+                {msg.role === "plaintiff"
+                  ? caseData.plaintiffName
+                  : msg.role === "defendant"
+                  ? caseData.defendantName
+                  : "Judge"}
+              </p>
+              <p className="text-sm leading-relaxed text-gray-200">{msg.content}</p>
+            </Card>
+          ))}
+
+          {judgeThinking && (
+            <Card className="p-4 mx-auto max-w-2xl bg-[#0f1425] border border-[#3b82f650] text-center">
+              <p className="text-sm text-gray-400">Judge is deliberating...</p>
+            </Card>
           )}
         </div>
 
-        {/* Defendant Side */}
-        <div className="w-1/4 space-y-4">
-          <Card className="p-4 border-l-4 border-l-defendant shadow">
-            <h3 className="font-semibold text-primary mb-2">Side B - Defendant</h3>
-            <p className="text-sm text-foreground font-medium mb-4">{caseData.defendantName}</p>
-            {currentPhase === "arguments" && argumentsRemaining > 0 && (
-              <div className="space-y-2">
-                <Textarea
-                  placeholder="Enter your argument..."
-                  value={defendantInput}
-                  onChange={(e) => setDefendantInput(e.target.value)}
-                  rows={4}
-                />
-                <Button
-                  onClick={() => handleSendMessage("defendant", defendantInput)}
-                  disabled={!defendantInput.trim() || judgeThinking}
-                  className="w-full"
-                >
-                  <Send className="h-4 w-4 mr-2" /> Submit Argument
-                </Button>
-              </div>
-            )}
-          </Card>
-        </div>
-      </main>
-    </div>
-  );
+        {currentPhase === "initial" && messages.length > 0 && (
+          <Button
+            onClick={handleInitialVerdict}
+            disabled={judgeThinking}
+            className="mt-4 bg-[#3b82f6] hover:bg-[#3b82f6]/90 text-white font-semibold shadow-[0_0_12px_#3b82f6]"
+          >
+            <Gavel className="h-5 w-5 mr-2" /> Request Initial Verdict
+          </Button>
+        )}
+      </div>
+
+      {/* DEFENDANT */}
+      <div className="w-1/4 space-y-4">
+        <Card className="p-4 border-l-4 border-l-red-500 bg-[#111829] shadow-[0_0_12px_#3b82f620]">
+          <h3 className="font-semibold text-red-400 mb-2 drop-shadow-[0_0_4px_red]">
+            Side B - Defendant
+          </h3>
+          <p className="text-sm text-gray-300 font-medium mb-4">
+            {caseData.defendantName}
+          </p>
+
+          {currentPhase === "arguments" && argumentsRemaining > 0 && (
+            <div className="space-y-2">
+              <Textarea
+                placeholder="Enter your argument..."
+                value={defendantInput}
+                onChange={(e) => setDefendantInput(e.target.value)}
+                rows={4}
+                className="bg-[#0f1425] border border-[#3b82f650] text-white"
+              />
+              <Button
+                onClick={() => handleSendMessage("defendant", defendantInput)}
+                disabled={!defendantInput.trim() || judgeThinking}
+                className="w-full bg-red-500 hover:bg-red-600 text-white shadow-[0_0_10px_red]"
+              >
+                <Send className="h-4 w-4 mr-2" /> Submit Argument
+              </Button>
+            </div>
+          )}
+        </Card>
+      </div>
+    </main>
+  </div>
+);
+
 };
 
 export default Courtroom;

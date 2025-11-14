@@ -183,227 +183,290 @@ const CaseSetup = () => {
   };
 
   return (
-    <div className="min-h-screen bg-courtroom-bg">
-      <header className="border-b border-border bg-card">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Scale className="h-6 w-6 text-secondary" />
-            <span className="text-xl font-bold text-primary">AI Judge</span>
-          </div>
-          <Button variant="ghost" onClick={() => navigate("/")}>
-            Back to Home
-          </Button>
+  <div className="min-h-screen bg-[#0d0f16] text-[#e6f1ff]">
+
+    {/* HEADER */}
+    <header className="border-b border-[#00b7ff33] bg-[#131723] shadow-[0_0_10px_#00b7ff22]">
+      <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <Scale className="h-6 w-6 text-[#00b7ff]" />
+          <span className="text-xl font-bold text-[#00b7ff]">AI Judge</span>
         </div>
-      </header>
+        <Button 
+          variant="ghost" 
+          className="text-[#e6f1ff] hover:text-[#00b7ff]"
+          onClick={() => navigate("/")}
+        >
+          Back to Home
+        </Button>
+      </div>
+    </header>
 
-      <main className="container mx-auto px-4 py-12">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-8">
-            <h1 className="text-4xl font-bold text-primary mb-4">Create New Case</h1>
-            <p className="text-muted-foreground text-lg">
-              Enter case details and upload relevant documents for both parties
-            </p>
-          </div>
+    {/* MAIN SECTION */}
+    <main className="container mx-auto px-4 py-12">
+      <div className="max-w-4xl mx-auto">
 
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <Card className="shadow-[var(--shadow-card)]">
+        {/* TITLE */}
+        <div className="text-center mb-8">
+          <h1 className="text-4xl font-bold text-[#00b7ff] mb-4">
+            Create New Case
+          </h1>
+          <p className="text-[#8aa2c0] text-lg">
+            Enter case details and upload documents for both parties
+          </p>
+        </div>
+
+        {/* FORM */}
+        <form onSubmit={handleSubmit} className="space-y-6">
+
+          {/* Case Information Card */}
+          <Card className="bg-[#131723] border border-[#00b7ff33] rounded-2xl shadow-[0_0_15px_#00b7ff22]">
+            <CardHeader>
+              <CardTitle className="text-[#00b7ff]">Case Information</CardTitle>
+              <CardDescription className="text-[#8aa2c0]">
+                Provide basic details about the legal case
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+
+              {/* Case Title */}
+              <div>
+                <Label htmlFor="caseTitle" className="text-[#b8c7e0]">Case Title *</Label>
+                <Input
+                  id="caseTitle"
+                  placeholder="e.g., Smith v. Johnson"
+                  value={caseTitle}
+                  onChange={(e) => setCaseTitle(e.target.value)}
+                  required
+                  className="mt-1 bg-[#0f1320] border border-[#00b7ff44] text-[#e6f1ff]
+                  rounded-xl px-4 py-3 focus:border-[#00b7ff]
+                  focus:shadow-[0_0_10px_#00b7ff] outline-none"
+                />
+              </div>
+
+              {/* Case Description */}
+              <div>
+                <Label htmlFor="caseDescription" className="text-[#b8c7e0]">Case Description</Label>
+                <Textarea
+                  id="caseDescription"
+                  placeholder="Brief description..."
+                  value={caseDescription}
+                  onChange={(e) => setCaseDescription(e.target.value)}
+                  rows={4}
+                  className="mt-1 bg-[#0f1320] border border-[#00b7ff44] text-[#e6f1ff]
+                  rounded-xl px-4 py-3 focus:border-[#00b7ff] 
+                  focus:shadow-[0_0_10px_#00b7ff] outline-none"
+                />
+              </div>
+
+            </CardContent>
+          </Card>
+
+          {/* PLAINTIFF + DEFENDANT SECTION */}
+          <div className="grid md:grid-cols-2 gap-6">
+
+            {/* Plaintiff Card */}
+            <Card className="bg-[#131723] border border-[#00b7ff33] rounded-2xl shadow-[0_0_15px_#00b7ff22]">
               <CardHeader>
-                <CardTitle>Case Information</CardTitle>
-                <CardDescription>Provide basic details about the legal case</CardDescription>
+                <CardTitle className="flex items-center gap-2 text-[#00b7ff]">
+                  <div className="w-3 h-3 rounded-full bg-[#00b7ff] shadow-[0_0_8px_#00b7ff]"></div>
+                  Side A - Plaintiff
+                </CardTitle>
+                <CardDescription className="text-[#8aa2c0]">
+                  Upload plaintiff’s documents
+                </CardDescription>
               </CardHeader>
+
               <CardContent className="space-y-4">
+
+                {/* Plaintiff Name */}
                 <div>
-                  <Label htmlFor="caseTitle">Case Title *</Label>
+                  <Label htmlFor="plaintiffName" className="text-[#b8c7e0]">Party Name *</Label>
                   <Input
-                    id="caseTitle"
-                    placeholder="e.g., Smith v. Johnson"
-                    value={caseTitle}
-                    onChange={(e) => setCaseTitle(e.target.value)}
+                    id="plaintiffName"
+                    placeholder="Plaintiff name"
+                    value={plaintiffName}
+                    onChange={(e) => setPlaintiffName(e.target.value)}
                     required
+                    className="mt-1 bg-[#0f1320] border border-[#00b7ff44] text-[#e6f1ff]
+                    rounded-xl px-4 py-3 focus:border-[#00b7ff]
+                    focus:shadow-[0_0_10px_#00b7ff] outline-none"
                   />
                 </div>
+
+                {/* Plaintiff File Upload */}
                 <div>
-                  <Label htmlFor="caseDescription">Case Description</Label>
-                  <Textarea
-                    id="caseDescription"
-                    placeholder="Brief description of the case..."
-                    value={caseDescription}
-                    onChange={(e) => setCaseDescription(e.target.value)}
-                    rows={4}
+                  <Label className="text-[#b8c7e0]">Upload Documents</Label>
+
+                  <input
+                    ref={plaintiffInputRef}
+                    type="file"
+                    multiple
+                    accept=".pdf,.doc,.docx,.txt"
+                    className="hidden"
+                    onChange={(e) => handleFileUpload(e.target.files, "plaintiff")}
                   />
+
+                  <div
+                    className="border-2 border-dashed border-[#00b7ff44] rounded-lg p-8 text-center
+                    hover:border-[#00b7ff] transition-all cursor-pointer bg-[#0f1320]"
+                    onClick={() => plaintiffInputRef.current?.click()}
+                  >
+                    {uploadingPlaintiff ? (
+                      <Loader2 className="h-8 w-8 mx-auto mb-2 text-[#00b7ff] animate-spin" />
+                    ) : (
+                      <Upload className="h-8 w-8 mx-auto mb-2 text-[#8aa2c0]" />
+                    )}
+                    <p className="text-sm text-[#8aa2c0] mb-1">
+                      {uploadingPlaintiff ? "Uploading..." : "Drop files or click to upload"}
+                    </p>
+                    <p className="text-xs text-[#8aa2c0]">
+                      PDF, Word, Text documents
+                    </p>
+                  </div>
+
+                  {plaintiffFiles.length > 0 && (
+                    <div className="mt-3 space-y-2">
+                      {plaintiffFiles.map((file) => (
+                        <div 
+                          key={file.id}
+                          className="flex items-center justify-between p-2 bg-[#0f1320] border border-[#00b7ff22] rounded-lg"
+                        >
+                          <div className="flex items-center gap-2 min-w-0">
+                            <FileText className="h-4 w-4 text-[#00b7ff]" />
+                            <div className="min-w-0">
+                              <p className="text-sm font-medium truncate">{file.name}</p>
+                              <p className="text-xs text-[#8aa2c0]">{formatFileSize(file.size)}</p>
+                            </div>
+                          </div>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => handleRemoveFile(file.id, "plaintiff")}
+                            className="text-[#e6f1ff] hover:text-[#00b7ff]"
+                          >
+                            <X className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
                 </div>
               </CardContent>
             </Card>
 
-            <div className="grid md:grid-cols-2 gap-6">
-              <Card className="shadow-[var(--shadow-card)] border-l-4 border-l-plaintiff">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-full bg-plaintiff"></div>
-                    Side A - Plaintiff
-                  </CardTitle>
-                  <CardDescription>Details and documents for the plaintiff</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div>
-                    <Label htmlFor="plaintiffName">Party Name *</Label>
-                    <Input
-                      id="plaintiffName"
-                      placeholder="Plaintiff name"
-                      value={plaintiffName}
-                      onChange={(e) => setPlaintiffName(e.target.value)}
-                      required
-                    />
-                  </div>
-                  <div>
-                    <Label>Upload Documents</Label>
-                    <input
-                      ref={plaintiffInputRef}
-                      type="file"
-                      multiple
-                      accept=".pdf,.doc,.docx,.txt"
-                      className="hidden"
-                      onChange={(e) => handleFileUpload(e.target.files, "plaintiff")}
-                    />
-                    <div 
-                      className="border-2 border-dashed border-border rounded-lg p-8 text-center hover:border-plaintiff transition-colors cursor-pointer"
-                      onClick={() => plaintiffInputRef.current?.click()}
-                    >
-                      {uploadingPlaintiff ? (
-                        <Loader2 className="h-8 w-8 mx-auto mb-2 text-plaintiff animate-spin" />
-                      ) : (
-                        <Upload className="h-8 w-8 mx-auto mb-2 text-muted-foreground" />
-                      )}
-                      <p className="text-sm text-muted-foreground mb-1">
-                        {uploadingPlaintiff ? "Uploading..." : "Drop files here or click to upload"}
-                      </p>
-                      <p className="text-xs text-muted-foreground">
-                        PDF, Word, or text documents
-                      </p>
-                    </div>
-                    
-                    {plaintiffFiles.length > 0 && (
-                      <div className="mt-3 space-y-2">
-                        {plaintiffFiles.map((file) => (
-                          <div 
-                            key={file.id}
-                            className="flex items-center justify-between p-2 bg-muted rounded-lg"
-                          >
-                            <div className="flex items-center gap-2 flex-1 min-w-0">
-                              <FileText className="h-4 w-4 text-plaintiff flex-shrink-0" />
-                              <div className="flex-1 min-w-0">
-                                <p className="text-sm font-medium truncate">{file.name}</p>
-                                <p className="text-xs text-muted-foreground">{formatFileSize(file.size)}</p>
-                              </div>
-                            </div>
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              onClick={() => handleRemoveFile(file.id, "plaintiff")}
-                              className="flex-shrink-0"
-                            >
-                              <X className="h-4 w-4" />
-                            </Button>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                </CardContent>
-              </Card>
+            {/* Defendant Card — Same Styling */}
+            <Card className="bg-[#131723] border border-[#00b7ff33] rounded-2xl shadow-[0_0_15px_#00b7ff22]">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-[#00b7ff]">
+                  <div className="w-3 h-3 rounded-full bg-[#00b7ff] shadow-[0_0_8px_#00b7ff]"></div>
+                  Side B - Defendant
+                </CardTitle>
+                <CardDescription className="text-[#8aa2c0]">
+                  Upload defendant’s documents
+                </CardDescription>
+              </CardHeader>
 
-              <Card className="shadow-[var(--shadow-card)] border-l-4 border-l-defendant">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-full bg-defendant"></div>
-                    Side B - Defendant
-                  </CardTitle>
-                  <CardDescription>Details and documents for the defendant</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div>
-                    <Label htmlFor="defendantName">Party Name *</Label>
-                    <Input
-                      id="defendantName"
-                      placeholder="Defendant name"
-                      value={defendantName}
-                      onChange={(e) => setDefendantName(e.target.value)}
-                      required
-                    />
-                  </div>
-                  <div>
-                    <Label>Upload Documents</Label>
-                    <input
-                      ref={defendantInputRef}
-                      type="file"
-                      multiple
-                      accept=".pdf,.doc,.docx,.txt"
-                      className="hidden"
-                      onChange={(e) => handleFileUpload(e.target.files, "defendant")}
-                    />
-                    <div 
-                      className="border-2 border-dashed border-border rounded-lg p-8 text-center hover:border-defendant transition-colors cursor-pointer"
-                      onClick={() => defendantInputRef.current?.click()}
-                    >
-                      {uploadingDefendant ? (
-                        <Loader2 className="h-8 w-8 mx-auto mb-2 text-defendant animate-spin" />
-                      ) : (
-                        <Upload className="h-8 w-8 mx-auto mb-2 text-muted-foreground" />
-                      )}
-                      <p className="text-sm text-muted-foreground mb-1">
-                        {uploadingDefendant ? "Uploading..." : "Drop files here or click to upload"}
-                      </p>
-                      <p className="text-xs text-muted-foreground">
-                        PDF, Word, or text documents
-                      </p>
-                    </div>
-                    
-                    {defendantFiles.length > 0 && (
-                      <div className="mt-3 space-y-2">
-                        {defendantFiles.map((file) => (
-                          <div 
-                            key={file.id}
-                            className="flex items-center justify-between p-2 bg-muted rounded-lg"
-                          >
-                            <div className="flex items-center gap-2 flex-1 min-w-0">
-                              <FileText className="h-4 w-4 text-defendant flex-shrink-0" />
-                              <div className="flex-1 min-w-0">
-                                <p className="text-sm font-medium truncate">{file.name}</p>
-                                <p className="text-xs text-muted-foreground">{formatFileSize(file.size)}</p>
-                              </div>
-                            </div>
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              onClick={() => handleRemoveFile(file.id, "defendant")}
-                              className="flex-shrink-0"
-                            >
-                              <X className="h-4 w-4" />
-                            </Button>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
+              <CardContent className="space-y-4">
 
-            <div className="flex justify-center pt-4">
-              <Button
-                type="submit"
-                size="lg"
-                className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-8"
-              >
-                Proceed to Courtroom
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-            </div>
-          </form>
-        </div>
-      </main>
-    </div>
-  );
+                {/* Defendant Name */}
+                <div>
+                  <Label htmlFor="defendantName" className="text-[#b8c7e0]">Party Name *</Label>
+                  <Input
+                    id="defendantName"
+                    placeholder="Defendant name"
+                    value={defendantName}
+                    onChange={(e) => setDefendantName(e.target.value)}
+                    required
+                    className="mt-1 bg-[#0f1320] border border-[#00b7ff44] text-[#e6f1ff]
+                    rounded-xl px-4 py-3 focus:border-[#00b7ff]
+                    focus:shadow-[0_0_10px_#00b7ff] outline-none"
+                  />
+                </div>
+
+                {/* Defendant upload */}
+                <div>
+                  <Label className="text-[#b8c7e0]">Upload Documents</Label>
+
+                  <input
+                    ref={defendantInputRef}
+                    type="file"
+                    multiple
+                    accept=".pdf,.doc,.docx,.txt"
+                    className="hidden"
+                    onChange={(e) => handleFileUpload(e.target.files, "defendant")}
+                  />
+
+                  <div
+                    className="border-2 border-dashed border-[#00b7ff44] rounded-lg p-8 text-center
+                    hover:border-[#00b7ff] transition-all cursor-pointer bg-[#0f1320]"
+                    onClick={() => defendantInputRef.current?.click()}
+                  >
+                    {uploadingDefendant ? (
+                      <Loader2 className="h-8 w-8 mx-auto mb-2 text-[#00b7ff] animate-spin" />
+                    ) : (
+                      <Upload className="h-8 w-8 mx-auto mb-2 text-[#8aa2c0]" />
+                    )}
+                    <p className="text-sm text-[#8aa2c0] mb-1">
+                      {uploadingDefendant ? "Uploading..." : "Drop files or click to upload"}
+                    </p>
+                    <p className="text-xs text-[#8aa2c0]">
+                      PDF, Word, Text documents
+                    </p>
+                  </div>
+
+                  {defendantFiles.length > 0 && (
+                    <div className="mt-3 space-y-2">
+                      {defendantFiles.map((file) => (
+                        <div 
+                          key={file.id}
+                          className="flex items-center justify-between p-2 bg-[#0f1320] border border-[#00b7ff22] rounded-lg"
+                        >
+                          <div className="flex items-center gap-2 min-w-0">
+                            <FileText className="h-4 w-4 text-[#00b7ff]" />
+                            <div className="min-w-0">
+                              <p className="text-sm font-medium truncate">{file.name}</p>
+                              <p className="text-xs text-[#8aa2c0]">{formatFileSize(file.size)}</p>
+                            </div>
+                          </div>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => handleRemoveFile(file.id, "defendant")}
+                            className="text-[#e6f1ff] hover:text-[#00b7ff]"
+                          >
+                            <X className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* SUBMIT BUTTON */}
+          <div className="flex justify-center pt-4">
+            <Button
+              type="submit"
+              size="lg"
+              className="bg-[#00b7ff] hover:bg-[#00a6e6] text-black font-semibold px-8
+              rounded-xl shadow-[0_0_15px_#00b7ff]"
+            >
+              Proceed to Courtroom
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Button>
+          </div>
+
+        </form>
+      </div>
+    </main>
+  </div>
+);
+
 };
 
 export default CaseSetup;
