@@ -1,0 +1,126 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    --background: 0 0% 98%;
+    --foreground: 210 50% 10%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 210 50% 10%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 210 50% 10%;
+
+    --primary: 210 50% 20%;
+    --primary-foreground: 40 80% 95%;
+
+    --secondary: 40 80% 50%;
+    --secondary-foreground: 210 50% 10%;
+
+    --muted: 210 30% 92%;
+    --muted-foreground: 210 20% 45%;
+
+    --accent: 210 40% 50%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 210 30% 85%;
+    --input: 210 30% 90%;
+    --ring: 210 50% 20%;
+
+    --radius: 0.5rem;
+    
+    /* Legal theme colors */
+    --judge: 210 50% 15%;
+    --judge-accent: 40 85% 55%;
+    --plaintiff: 350 60% 45%;
+    --defendant: 210 45% 50%;
+    --courtroom-bg: 210 25% 95%;
+    
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(210 50% 20%) 0%, hsl(210 60% 30%) 100%);
+    --gradient-judge: linear-gradient(180deg, hsl(210 50% 15%) 0%, hsl(210 50% 25%) 100%);
+    
+    /* Shadows */
+    --shadow-elegant: 0 10px 40px -10px hsl(210 50% 20% / 0.3);
+    --shadow-card: 0 4px 20px -2px hsl(210 30% 40% / 0.15);
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 210 50% 8%;
+    --foreground: 210 30% 95%;
+
+    --card: 210 45% 12%;
+    --card-foreground: 210 30% 95%;
+
+    --popover: 210 45% 12%;
+    --popover-foreground: 210 30% 95%;
+
+    --primary: 210 40% 85%;
+    --primary-foreground: 210 50% 10%;
+
+    --secondary: 40 75% 55%;
+    --secondary-foreground: 210 50% 10%;
+
+    --muted: 210 40% 18%;
+    --muted-foreground: 210 20% 60%;
+
+    --accent: 210 45% 45%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 65% 45%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 210 40% 20%;
+    --input: 210 40% 20%;
+    --ring: 210 40% 70%;
+    
+    --judge: 210 45% 85%;
+    --judge-accent: 40 85% 60%;
+    --plaintiff: 350 55% 55%;
+    --defendant: 210 50% 60%;
+    --courtroom-bg: 210 45% 10%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
