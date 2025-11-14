@@ -47,7 +47,7 @@ const Index = () => {
         <div className="flex items-center gap-2">
           <Scale className="h-6 w-6 text-blue-400 drop-shadow-[0_0_6px_#3b82f6]" />
           <span className="text-xl font-bold text-blue-300 drop-shadow-[0_0_8px_#3b82f6]">
-            AI Judge
+            CourtRoomJudge
           </span>
         </div>
         <Button
